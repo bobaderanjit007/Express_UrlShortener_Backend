@@ -5,11 +5,25 @@ const createShortUrl = async (req, res) =>{
         const {longUrl, shortUrl } = req.body;
         const newUrl = await urlService.createShortUrl(longUrl, shortUrl);
         res.status(201).json({data: newUrl})
+
     } catch (error) {
-        res.status(500).json({data : "Interal Server error"})
+        console.log(error);
+        res.status(500).json({data : error})
+    }
+}
+
+const redirectToLongUrl = async (req, res) => {
+    try {
+        const {shortUrl} = req.params;
+        const longUrl = await urlService.getLongUrl(shortUrl);
+        res.status(200).json({data: longUrl});
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({data : error})
     }
 }
 
 module.exports = {
-    createShortUrl
+    createShortUrl, 
+    redirectToLongUrl
 }
