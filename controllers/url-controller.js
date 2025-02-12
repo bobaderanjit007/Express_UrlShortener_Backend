@@ -3,6 +3,7 @@ const urlService = require('../services/url-service');
 const createShortUrl = async (req, res) =>{
     try {
         const {longUrl, shortUrl } = req.body;
+        console.log("req.body : ", req.body)
         const newUrl = await urlService.createShortUrl(longUrl, shortUrl);
         res.status(201).json({data: newUrl})
 
